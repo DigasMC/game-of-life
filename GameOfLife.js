@@ -2,7 +2,7 @@
 
 const sqSize = 20, sqSpace = 2
 const cols = 40, rows = 40
-const frameRate = 2 //fps
+var frameRate = 2 //fps
 var gameItvl
 
 const canvas = document.getElementById('canvas')
@@ -13,6 +13,7 @@ const ctx = canvas.getContext('2d')
 
 let board = createBoard(cols, rows)
 
+drawBoard(board)
 
 function createBoard(cols = 10, rows = 10) {
   let board = new Array(cols)
@@ -46,6 +47,8 @@ function drawBoard(board) {
     for(let y = 0; y < board[x].length; y++) {
       if(board[x][y]) {
         ctx.fillRect(x * sqSize, y * sqSize, sqSize, sqSize)
+      } else {
+        ctx.strokeRect(x * sqSize, y * sqSize, sqSize, sqSize)
       }
     }
   }
@@ -94,18 +97,11 @@ function getMousePos(canvas, evt) {
   };
 }
 
-canvas.addEventListener('click', function(evt) {
-  var mousePos = getMousePos(canvas, evt);
-  console.log(mousePos)
-  board[mousePos.x][mousePos.y] = !board[mousePos.x][mousePos.y]
-  drawBoard(board)
-}, false);
-
 function play() {
   gameItvl = setInterval(function() {
     board = nextStep(board)
     drawBoard(board)
-  }, 200)
+  }, 1000/frameRate)
 
   document.getElementById('playBtn').classList.add('hidden')
   document.getElementById('stopBtn').classList.remove('hidden')
@@ -117,4 +113,18 @@ function pause() {
  document.getElementById('stopBtn').classList.add('hidden')
 }
 
+function changeFPS() {
+  frameRate = document.getElementById('fpsRange').value
+  document.getElementById('fpsLabel').innerHTML = frameRate
+  pause()
+  play()
+}
 
+
+//Event listeners
+canvas.addEventListener('click', function(evt) {
+  var mousePos = getMousePos(canvas, evt);
+  console.log(mousePos)
+  board[mousePos.x][mousePos.y] = !board[mousePos.x][mousePos.y]
+  drawBoard(board)
+}, false);

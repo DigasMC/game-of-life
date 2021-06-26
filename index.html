@@ -40,6 +40,12 @@
     <div>
       <button id="playBtn" onclick="play()">Play</button>
       <button id="stopBtn" class="hidden" onclick="pause()">Stop</button>
+      <label for="fpsRange">Frame Rate</label>
+      <input oninput="changeFPS()" type="range" name="fps" id="fpsRange" min="1" value="2" max="60">
+      <strong id="fpsLabel">2</strong>
+    </div>
+    <div>
+      
     </div>
   </div>
   <script src="./GameOfLife.js"></script>
