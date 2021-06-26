@@ -103,17 +103,18 @@ canvas.addEventListener('click', function(evt) {
 
 function play() {
   gameItvl = setInterval(function() {
-    drawBoard(board = nextStep(board))
+    board = nextStep(board)
+    drawBoard(board)
   }, 200)
+
+  document.getElementById('playBtn').classList.add('hidden')
+  document.getElementById('stopBtn').classList.remove('hidden')
 }
 
 function pause() {
  clearInterval(gameItvl)
-}
-
-function stop() {
-  pause()
-  board = createBoard(cols, rows)
+ document.getElementById('playBtn').classList.remove('hidden')
+ document.getElementById('stopBtn').classList.add('hidden')
 }
 
 
