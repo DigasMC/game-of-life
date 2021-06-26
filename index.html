@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game of Life</title>
+  <style>
+    canvas {
+      border: solid 4px black
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div>
+    <button onclick="drawBoard(resetBoard(board))">Clear</button>
+    <button onclick="drawBoard(randomizeBoard(board))">Random</button>
+    <button onclick="drawBoard(board = nextStep(board))">Next >></button>
+  </div>
+  <div>
+    <button onclick="startGame()">Play |></button>
+    <button onclick="pauseGame()">Pause ||</button>
+    <button onclick="stopGame()">Stop []</button>
+  </div>
+  <script src="./GameOfLife.js"></script>
+</body>
+</html>
