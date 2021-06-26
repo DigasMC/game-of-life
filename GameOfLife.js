@@ -3,7 +3,7 @@
 const sqSize = 20, sqSpace = 2
 const cols = 40, rows = 40
 var frameRate = 2 //fps
-var gameItvl
+var gameItvl, live = false
 
 const canvas = document.getElementById('canvas')
 canvas.height = rows * sqSize
@@ -102,7 +102,7 @@ function play() {
     board = nextStep(board)
     drawBoard(board)
   }, 1000/frameRate)
-
+  live = true
   document.getElementById('playBtn').classList.add('hidden')
   document.getElementById('stopBtn').classList.remove('hidden')
 }
@@ -111,13 +111,16 @@ function pause() {
  clearInterval(gameItvl)
  document.getElementById('playBtn').classList.remove('hidden')
  document.getElementById('stopBtn').classList.add('hidden')
+ live = false
 }
 
 function changeFPS() {
   frameRate = document.getElementById('fpsRange').value
   document.getElementById('fpsLabel').innerHTML = frameRate
-  pause()
-  play()
+  if(live) {
+    pause()
+    play()
+  }
 }
 
 
