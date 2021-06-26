@@ -6,22 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game of Life</title>
   <style>
+
+    body {
+      display: flex;
+    }
+
     canvas {
-      border: solid 4px black
+      border: solid 4px black;
+    }
+
+    .menu {
+      padding: 0 50px;
+    }
+
+    .menu button {
+      margin: 5px 10px;
+      padding: 10px 20px;
     }
   </style>
 </head>
 <body>
   <canvas id="canvas"></canvas>
-  <div>
-    <button onclick="drawBoard(resetBoard(board))">Clear</button>
-    <button onclick="drawBoard(randomizeBoard(board))">Random</button>
-    <button onclick="drawBoard(board = nextStep(board))">Next >></button>
-  </div>
-  <div>
-    <button onclick="startGame()">Play |></button>
-    <button onclick="pauseGame()">Pause ||</button>
-    <button onclick="stopGame()">Stop []</button>
+  <div class="menu">
+    <div>
+      <button onclick="drawBoard(resetBoard(board))">Clear</button>
+      <button onclick="drawBoard(randomizeBoard(board))">Random</button>
+      <button onclick="drawBoard(board = nextStep(board))">Next >></button>
+    </div>
+    <div>
+      <button onclick="play()">Play |></button>
+      <button onclick="pause()">Pause ||</button>
+      <button onclick="stop()">Stop []</button>
+    </div>
   </div>
   <script src="./GameOfLife.js"></script>
 </body>

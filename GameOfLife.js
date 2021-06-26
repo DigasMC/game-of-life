@@ -1,5 +1,19 @@
 // GAME OF LIFE
 
+const sqSize = 20, sqSpace = 2
+const cols = 40, rows = 40
+const frameRate = 2 //fps
+var gameItvl
+
+const canvas = document.getElementById('canvas')
+canvas.height = rows * sqSize
+canvas.width = cols * sqSize
+
+const ctx = canvas.getContext('2d')
+
+let board = createBoard(cols, rows)
+
+
 function createBoard(cols = 10, rows = 10) {
   let board = new Array(cols)
   for(let col = 0; col<cols; col++) {
@@ -70,33 +84,36 @@ function countNeighbours(board, i, j) {
 
 }
 
-
-
-
-
-
-//GAME LOOP
-const sqSize = 20
-const sqSpace = 2
-const cols = 40, rows = 40
-const canvas = document.getElementById('canvas')
-canvas.height = rows * sqSize
-canvas.width = cols * sqSize
-const ctx = canvas.getContext('2d')
-
-let board = createBoard(cols, rows)
-
-
+//Mouse drawing function
 function getMousePos(canvas, evt) {
   var rect = canvas.getBoundingClientRect();
   
   return {
-    x: Math.floor((evt.clientX - rect.left) / sqSize),
-    y: Math.floor((evt.clientY - rect.top) / sqSize)
+    x: Math.min(Math.floor((evt.clientX - rect.left) / sqSize), cols - 1),
+    y: Math.min(Math.floor((evt.clientY - rect.top) / sqSize), rows - 1)
   };
 }
+
 canvas.addEventListener('click', function(evt) {
   var mousePos = getMousePos(canvas, evt);
+  console.log(mousePos)
   board[mousePos.x][mousePos.y] = !board[mousePos.x][mousePos.y]
   drawBoard(board)
 }, false);
+
+function play() {
+  gameItvl = setInterval(function() {
+    drawBoard(board = nextStep(board))
+  }, 200)
+}
+
+function pause() {
+ clearInterval(gameItvl)
+}
+
+function stop() {
+  pause()
+  board = createBoard(cols, rows)
+}
+
+
