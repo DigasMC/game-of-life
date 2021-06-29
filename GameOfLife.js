@@ -3,7 +3,7 @@
 const sqSize = 20, sqSpace = 2
 const cols = 40, rows = 40
 var frameRate = 2 //fps
-var gameItvl, live = false
+var gameItvl, live = false, generation = 0
 
 const canvas = document.getElementById('canvas')
 canvas.height = rows * sqSize
@@ -23,7 +23,7 @@ function createBoard(cols = 10, rows = 10) {
   return resetBoard(board)
 }
 
-function resetBoard(board) {
+function resetBoard(board) {  
   for(let x = 0; x < board.length; x++) {
     for(let y = 0; y < board[x].length; y++) {
       board[x][y] = false
@@ -33,6 +33,8 @@ function resetBoard(board) {
 }
 
 function randomizeBoard(board) {
+  generation = 0
+  document.getElementById('generation').innerHTML = generation
   for(let x = 0; x < board.length; x++) {
     for(let y = 0; y < board[x].length; y++) {
       board[x][y] = Math.floor(Math.random() * 2) == 1
@@ -55,6 +57,8 @@ function drawBoard(board) {
 }
 
 function nextStep(board) {
+  generation = generation + 1 
+  document.getElementById('generation').innerHTML = generation
   let secBoard = createBoard(cols, rows)
   for(let x = 0; x < board.length; x++) {
     for(let y = 0; y < board[x].length; y++) {
@@ -100,6 +104,8 @@ function getMousePos(canvas, evt) {
 function play() {
   gameItvl = setInterval(function() {
     board = nextStep(board)
+    generation = generation + 1 
+    document.getElementById('generation').innerHTML = generation
     drawBoard(board)
   }, 1000/frameRate)
   live = true

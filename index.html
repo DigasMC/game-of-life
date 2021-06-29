@@ -33,7 +33,7 @@
   <canvas id="canvas"></canvas>
   <div class="menu">
     <div>
-      <button onclick="drawBoard(resetBoard(board))">Clear</button>
+      <button onclick="drawBoard(resetBoard(board)); generation = 0;document.getElementById('generation').innerHTML = generation">Clear</button>
       <button onclick="drawBoard(randomizeBoard(board))">Random</button>
       <button onclick="drawBoard(board = nextStep(board))">Next >></button>
     </div>
@@ -45,7 +45,7 @@
       <strong id="fpsLabel">2</strong>
     </div>
     <div>
-      
+      <p>Generation: <strong id="generation">0</strong></p>
     </div>
   </div>
   <script src="./GameOfLife.js"></script>
